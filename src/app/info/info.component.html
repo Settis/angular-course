@@ -1,0 +1,15 @@
+<div (click)="clickOnWhole()" class="activity-row">
+  <div class="activity-desc">
+    <h5>{{place.name}}</h5>
+    <p>{{place.country}}</p>
+    <p>{{place.city}}</p>
+    <h6>Tel:+{{place.telephone}}</h6>
+  </div>
+  <div class="activity-img">
+    <ul>
+      <li><img src='{{place.mainImageMin}}'  alt=""/></li>
+      <li><img src='{{place.secondImageMin}}'  alt=""/></li>
+    </ul>
+  </div>
+  <div class="clear"> </div>
+</div>

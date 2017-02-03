@@ -1,3 +1,27 @@
 <h1>
-  {{title}}
+  Check the weather!
 </h1>
+<div class="element">
+  <div class="element-left">
+    <div class="element-bg-img"><img src="{{place.mainImage}}" alt="" class="img-responsive"> </div>
+    <div class="element-left-bottom">
+      <div class="ele-strip">
+        <h2>{{place.name}}</h2>
+      </div>
+      <div class="village">
+        <h3>Select the one of the following places:</h3>
+        <span class="line"> </span>
+        <div class="activity_box">
+          <div class="scrollbar" id="style-2">
+            <app-info *ngFor="let thisPlace of places" [place]="thisPlace" (clickOnIt)="place = $event"></app-info>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="element-right">
+    <app-weather [place]="place"></app-weather>
+    <app-follow [place]="place"></app-follow>
+  </div>
+  <div class="clear"> </div>
+</div>
