@@ -224,13 +224,12 @@ i.text-info{
   font-weight: bold;
 }
 .activity-row{
-  margin-bottom:1em;
+  padding: 0.5em 1em 0.5em 1em;
 }
 .scrollbar{
   height:115px;
   background:#fff;
   overflow-y: scroll;
-  padding: 1em 1em 0em 1em;
 }
 .activity_box{
   background: #fff;
