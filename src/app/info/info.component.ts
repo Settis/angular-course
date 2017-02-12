@@ -8,13 +8,13 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class InfoComponent {
 
   @Input()
-  public place: IPlace;
+  public places: [IPlace];
 
   @Output()
   public clickOnIt: EventEmitter<IPlace> = new EventEmitter();
 
-  public clickOnWhole(): void {
-    this.clickOnIt.next(this.place);
+  public clickOnWhole(place: IPlace): void {
+    this.clickOnIt.next(place);
   }
 
 }

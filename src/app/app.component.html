@@ -11,11 +11,7 @@
       <div class="village">
         <h3>Select the one of the following places:</h3>
         <span class="line"> </span>
-        <div class="activity_box">
-          <div class="scrollbar" id="style-2">
-            <app-info *ngFor="let place of places" [place]="place" (clickOnIt)="changeCurrentPlace($event)"></app-info>
-          </div>
-        </div>
+        <app-info [places]="places" (clickOnIt)="changeCurrentPlace($event)"></app-info>
       </div>
     </div>
   </div>
