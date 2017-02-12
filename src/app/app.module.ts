@@ -9,6 +9,7 @@ import { FollowComponent } from './follow/follow.component';
 import { InfoComponent } from './info/info.component';
 import { FilterByCountryPipe } from './pipes/filter-by-country.pipe';
 import { GetDistinctCountriesPipe } from './pipes/get-distinct-countries.pipe';
+import { HighlightDirective } from './highlight.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GetDistinctCountriesPipe } from './pipes/get-distinct-countries.pipe';
     FollowComponent,
     InfoComponent,
     FilterByCountryPipe,
-    GetDistinctCountriesPipe
+    GetDistinctCountriesPipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
