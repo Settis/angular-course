@@ -1,5 +1,4 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Place} from "../place";
 
 @Component({
   selector: 'app-follow',
@@ -14,6 +13,6 @@ export class FollowComponent implements OnInit {
   }
 
   @Input()
-  public place: Place;
+  public place: IPlace;
 
 }

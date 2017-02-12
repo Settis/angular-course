@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Place} from "../place";
 
 @Component({
   selector: 'app-info',
@@ -14,10 +13,10 @@ export class InfoComponent implements OnInit {
   }
 
   @Input()
-  public place: Place;
+  public place: IPlace;
 
   @Output()
-  public clickOnIt: EventEmitter<Place> = new EventEmitter();
+  public clickOnIt: EventEmitter<IPlace> = new EventEmitter();
 
   public clickOnWhole(){
     this.clickOnIt.next(this.place);
