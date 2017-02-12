@@ -1,3 +1,6 @@
 .highlight {
   color: orangered;
 }
+.active {
+  color: whitesmoke;
+}

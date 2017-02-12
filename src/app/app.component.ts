@@ -75,4 +75,8 @@ export class AppComponent implements OnInit {
     this.countryFilter = country;
   }
 
+  public checkCountryFilter(country: string): boolean {
+    return this.countryFilter == country;
+  }
+
 }

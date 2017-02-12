@@ -7,9 +7,9 @@
     <div class="element-left-bottom">
       <div class="ele-strip">
         <h2>
-          <a href="#" (click)="changeCountryFilter(null)" appHighlight>All</a>
+          <a href="#" (click)="changeCountryFilter(null)" appHighlight [ngClass]="{'active':checkCountryFilter(null)}">All</a>
           <span *ngFor="let country of places | getDistinctCountries">
-            | <a href="#" (click)="changeCountryFilter(country)" appHighlight>{{country}}</a>
+            | <a href="#" (click)="changeCountryFilter(country)" appHighlight [ngClass]="{'active':checkCountryFilter(country)}">{{country}}</a>
           </span>
         </h2>
       </div>
