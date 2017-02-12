@@ -1,6 +1,6 @@
 <div class="activity_box">
   <div class="scrollbar" id="style-2">
-    <div *ngFor="let place of places; let isEven=even" (click)="clickOnWhole(place)"
+    <div *ngFor="let place of places | filterByCountry:countryFilter; let isEven=even" (click)="clickOnWhole(place)"
               [ngClass]="{'even_line':isEven,'activity-row':true}">
       <div class="activity-desc">
         <h5>{{place.name}}</h5>

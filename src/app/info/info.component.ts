@@ -8,7 +8,10 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 export class InfoComponent {
 
   @Input()
-  public places: [IPlace];
+  public places: IPlace[];
+
+  @Input()
+  public countryFilter: string;
 
   @Output()
   public clickOnIt: EventEmitter<IPlace> = new EventEmitter();

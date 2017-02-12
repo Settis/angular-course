@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
 import { FollowComponent } from './follow/follow.component';
 import { InfoComponent } from './info/info.component';
+import { FilterByCountryPipe } from './pipes/filter-by-country.pipe';
+import { GetDistinctCountriesPipe } from './pipes/get-distinct-countries.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     WeatherComponent,
     FollowComponent,
-    InfoComponent
+    InfoComponent,
+    FilterByCountryPipe,
+    GetDistinctCountriesPipe
   ],
   imports: [
     BrowserModule,
