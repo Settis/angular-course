@@ -1,16 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.css']
 })
-export class InfoComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class InfoComponent {
 
   @Input()
   public place: IPlace;
@@ -18,7 +13,7 @@ export class InfoComponent implements OnInit {
   @Output()
   public clickOnIt: EventEmitter<IPlace> = new EventEmitter();
 
-  public clickOnWhole(){
+  public clickOnWhole(): void {
     this.clickOnIt.next(this.place);
   }
 

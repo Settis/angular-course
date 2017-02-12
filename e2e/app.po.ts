@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { browser, element, by } from 'protractor';
 
 export class AngularCoursePage {
