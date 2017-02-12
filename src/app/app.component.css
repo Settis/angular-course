@@ -1,3 +1,7 @@
+.fake-link {
+  color: blue;
+  cursor: pointer;
+}
 .highlight {
   color: orangered;
 }
