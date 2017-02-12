@@ -55,8 +55,8 @@ export class AppComponent implements OnInit {
 
   public places: IPlace[] = [
       new Place('Hotel', 'Puerto Rico', 'San Juan', 123321123, 33, 21, 'sunny', 45, 3445, '1'),
-      new Place('SPA', 'French Polyneisa', 'Bora Bora', 123555123, 30, 25, 'windy', 12345, 405, '2'),
-      new Place('Another hotel', 'Netherlands Antilles', 'Curacao', 127777777, 27, 16, 'windy', 12, 100, '3'),
+      new Place('SPA', 'Polyneisa', 'Bora Bora', 123555123, 30, 25, 'windy', 12345, 405, '2'),
+      new Place('Another hotel', 'Netherlands', 'Curacao', 127777777, 27, 16, 'windy', 12, 100, '3'),
     ];
 
   public currentPlace: IPlace;
