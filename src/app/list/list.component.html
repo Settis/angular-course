@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Description</th>
+    <th>Created</th>
+    <th>Updated</th>
+  </tr>
+  <tr *ngFor="let repo of searchResult">
+    <td>{{repo.name}}</td>
+    <td><img [src]="repo.owner.avatar_url"/>{{repo.owner.login}}</td>
+    <td>{{repo.description}}</td>
+    <td>{{repo.created_at | toDate | date:'medium'}}</td>
+    <td>{{repo.updated_at | toDate | date:'medium'}}</td>
+  </tr>
+</table>
