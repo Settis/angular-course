@@ -22,8 +22,9 @@ export class AppComponent implements OnInit{
     this.searchSubject = new Subject();
 
     this.searchSubject.debounceTime(300).switchMap((searchTerm: string) => Observable
-        .fromPromise(fetch(`https://api.github.com/search/repositories?q=${searchTerm}`).then(res=>res.json())))
-      .subscribe(res => {
+      .fromPromise(fetch(`https://api.github.com/search/repositories?q=${searchTerm}`)
+        .then((res: Body) => res.json())))
+      .subscribe((res: Responce): void => {
         this.totalCount = res.total_count;
         this.searchResult = res.items;
       })

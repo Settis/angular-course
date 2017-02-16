@@ -14,3 +14,8 @@ type Repo = {
   created_at: string;
   updated_at: string;
 }
+
+type Responce = {
+  total_count: number;
+  items: Repo[];
+}
