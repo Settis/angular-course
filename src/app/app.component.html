@@ -1,4 +1,4 @@
-<input id="search"/>
+<input (input)="search($event.target.value)"/>
 <p>Total count: {{totalCount}}</p>
 
 <app-list [searchResult]="searchResult"></app-list>

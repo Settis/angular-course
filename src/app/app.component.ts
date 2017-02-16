@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import 'whatwg-fetch';
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -15,19 +16,24 @@ import 'whatwg-fetch';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  private searchSubject: Subject<string> = new Subject();
   ngOnInit(): void {
-    Observable
-      .fromEvent(document.querySelector('#search'), 'keydown')
-      .debounceTime(300)
-      .map((event: KeyboardEvent) => (event.target as HTMLInputElement).value)
-      .switchMap((searchTerm: string) => Observable
+
+    this.searchSubject = new Subject();
+
+    this.searchSubject.debounceTime(300).switchMap((searchTerm: string) => Observable
         .fromPromise(fetch(`https://api.github.com/search/repositories?q=${searchTerm}`).then(res=>res.json())))
-        .subscribe(res => {
-          this.totalCount = res.total_count;
-          this.searchResult = res.items;
-        })
+      .subscribe(res => {
+        this.totalCount = res.total_count;
+        this.searchResult = res.items;
+      })
+
   }
   public searchResult: Repo[];
   public totalCount: number;
+
+  public search(request: string): void {
+    this.searchSubject.next(request)
+  }
 
 }
