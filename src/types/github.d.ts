@@ -2,7 +2,7 @@ type Owner = {
   id: number;
   login: string;
   avatar_url: string;
-}
+};
 
 type Repo = {
   id: number;
@@ -13,9 +13,9 @@ type Repo = {
   owner: Owner;
   created_at: string;
   updated_at: string;
-}
+};
 
-type Responce = {
+type GitHubResponse = {
   total_count: number;
   items: Repo[];
-}
+};

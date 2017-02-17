@@ -8,33 +8,32 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import 'whatwg-fetch';
-import {Subject} from "rxjs";
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  private searchSubject: Subject<string> = new Subject();
-  ngOnInit(): void {
+export class AppComponent implements OnInit {
 
-    this.searchSubject = new Subject();
-
-    this.searchSubject.debounceTime(300).switchMap((searchTerm: string) => Observable
-      .fromPromise(fetch(`https://api.github.com/search/repositories?q=${searchTerm}`)
-        .then((res: Body) => res.json())))
-      .subscribe((res: Responce): void => {
-        this.totalCount = res.total_count;
-        this.searchResult = res.items;
-      })
-
-  }
   public searchResult: Repo[];
   public totalCount: number;
+  private searchSubject$$: Subject<string> = new Subject();
+
+  public ngOnInit(): void {
+    this.searchSubject$$ = new Subject();
+    this.searchSubject$$.debounceTime(300).switchMap((searchTerm: string) => Observable
+      .fromPromise(fetch(`https://api.github.com/search/repositories?q=${searchTerm}`)
+        .then((res: Body) => res.json())))
+      .subscribe((res: GitHubResponse): void => {
+        this.totalCount = res.total_count;
+        this.searchResult = res.items;
+      });
+  }
 
   public search(request: string): void {
-    this.searchSubject.next(request)
+    this.searchSubject$$.next(request);
   }
 
 }
