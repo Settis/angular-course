@@ -119,10 +119,6 @@ input, textarea {
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
-input:focus, textarea:focus {
-  outline: 0;
-  border-color: #1ab188;
-}
 
 textarea {
   border: 2px solid #a0b3b0;
