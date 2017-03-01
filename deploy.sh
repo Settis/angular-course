@@ -1,3 +1,4 @@
 #!/bin/bash
 
-ng github-pages:deploy --base-href="angularCourse"
+ng build --prod --base-href "https://settis.github.io/angularCourse/"
+angular-cli-ghpages
