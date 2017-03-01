@@ -92,11 +92,20 @@ label .req {
 }
 
 label.active {
-  -webkit-transform: translateY(50px);
-          transform: translateY(50px);
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
   left: 2px;
   font-size: 14px;
 }
+
+label.error {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+  left: 2px;
+  font-size: 14px;
+  color: red;
+}
+
 label.active .req {
   opacity: 0;
 }

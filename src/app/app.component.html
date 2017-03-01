@@ -9,7 +9,7 @@
     <div id="signup">
       <h1>Sign Up for Free</h1>
 
-      <form [formGroup]="singUpForm">
+      <form [formGroup]="signUpForm">
 
         <div class="top-row">
           <div class="field-wrap">
@@ -17,6 +17,7 @@
               First Name<span class="req">*</span>
             </label>
             <input type="text" autocomplete="off" formControlName="firstName" />
+            <label class="error" *ngIf="signUpFormErrors.firstName">{{signUpFormErrors.firstName}}</label>
           </div>
 
           <div class="field-wrap">
@@ -24,6 +25,7 @@
               Last Name<span class="req">*</span>
             </label>
             <input type="text" autocomplete="off" formControlName="lastName" />
+            <label class="error" *ngIf="signUpFormErrors.lastName">{{signUpFormErrors.lastName}}</label>
           </div>
         </div>
 
@@ -32,16 +34,18 @@
             Email Address<span class="req">*</span>
           </label>
           <input type="text" autocomplete="off" formControlName="email" />
+          <label class="error" *ngIf="signUpFormErrors.email">{{signUpFormErrors.email}}</label>
         </div>
 
         <div class="field-wrap">
           <label>
             Set A Password<span class="req">*</span>
           </label>
-          <input type="password"required autocomplete="off"/>
+          <input type="password" autocomplete="off" formControlName="password" />
+          <label class="error" *ngIf="signUpFormErrors.password">{{signUpFormErrors.password}}</label>
         </div>
 
-        <button type="submit" class="button button-block" [disabled]="!singUpForm.valid">Get Started</button>
+        <button type="submit" class="button button-block" [disabled]="!signUpForm.valid">Get Started</button>
       </form>
 
     </div>
@@ -55,19 +59,21 @@
           <label>
             Email Address<span class="req">*</span>
           </label>
-          <input type="email"required autocomplete="off"/>
+          <input type="email" autocomplete="off" formControlName="email" />
+          <label class="error" *ngIf="logInFormErrors.email">{{logInFormErrors.email}}</label>
         </div>
 
         <div class="field-wrap">
           <label>
             Password<span class="req">*</span>
           </label>
-          <input type="password"required autocomplete="off"/>
+          <input type="password" autocomplete="off" formControlName="password" />
+          <label class="error" *ngIf="logInFormErrors.password">{{logInFormErrors.password}}</label>
         </div>
 
         <p class="forgot"><a href="#">Forgot Password?</a></p>
 
-        <button class="button button-block">Log In</button>
+        <button class="button button-block" [disabled]="!logInForm.valid">Log In</button>
 
       </form>
 

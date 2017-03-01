@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation, AfterViewInit, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var $:any;
@@ -9,25 +9,111 @@ declare var $:any;
   styleUrls: ['./app.component.css'],
   // encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit, OnInit{
+  ngOnInit(): void {
+    this.onSignUpValueChanged();
+    this.onLogInValueChanged();
+  }
 
-  public singUpForm: FormGroup;
+  public signUpForm: FormGroup;
   public logInForm: FormGroup;
 
+  public signUpFormErrors = {
+    'firstName': '',
+    'lastName': '',
+    'email': '',
+    'password': '',
+  };
+
+  public logInFormErrors = {
+    'email': '',
+    'password': '',
+  };
+
   public constructor(private _fb: FormBuilder) {
-    this.singUpForm = _fb.group({
-      firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/), Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/), Validators.minLength(3)]],
+    this.signUpForm = _fb.group({
+      firstName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.pattern(/^\w+@\w+\.\w+$/)]],
-      pasword: []
+      password: ['', [Validators.required, this.passwordValidator, Validators.minLength(10)]]
     });
-    this.logInForm = _fb.group({});
+    this.signUpForm.valueChanges.subscribe(data => this.onSignUpValueChanged());
+    this.logInForm = _fb.group({
+      email: ['', [Validators.required, Validators.pattern(/^\w+@\w+\.\w+$/)]],
+      password: ['', [Validators.required]]
+    });
+    this.logInForm.valueChanges.subscribe(data => this.onLogInValueChanged());
   }
 
   private nameValidator(control: FormControl): {[key: string]: boolean} {
     const value = control.value || '';
     const valid = value.match(/^[a-zA-Z]*$/);
     return valid ? null : {nospecial: true}
+  }
+
+  private passwordValidator(control: FormControl): {[key: string]: boolean} {
+    if (!control.value)
+      return null;
+    const result: {[key: string]: boolean} = {};
+    const value = control.value;
+    if (!value.match(/[A-Z]/))
+      result['upper'] = true;
+    if (!value.match(/[a-z]/))
+      result['lower'] = true;
+    if (!value.match(/\d/))
+      result['digit'] = true;
+    if (!value.match(/[^A-Za-z0-9]/))
+      result['special'] = true;
+    return Object.keys(result).length == 0 ? null : result;
+  }
+
+  private validationMessages = {
+    'firstName': {
+      'required': 'First name is required.',
+      'minlength': 'First name must be at least 3 characters long.',
+      'nospecial': 'First name must contain only latin letters.',
+    },
+    'lastName': {
+      'required': 'Last name is required.',
+      'minlength': 'Last name must be at least 3 characters long.',
+      'nospecial': 'Last name must contain only latin letters.',
+    },
+    'email': {
+      'required': 'Email is required.',
+      'pattern': 'Email must be in a valid format.',
+    },
+    'password': {
+      'required': 'Password is required.',
+      'upper': 'Password must contain upper case letters.',
+      'lower': 'Password must contain lower case letters.',
+      'digit': 'Password must contain digits.',
+      'special': 'Password must contain special characters.',
+      'minlength': 'Password must be at least 10 characters long.',
+    },
+  };
+
+  private onSignUpValueChanged(): void {
+    this.setErrorMessages(this.signUpForm, this.signUpFormErrors);
+  }
+
+  private onLogInValueChanged(): void {
+    this.setErrorMessages(this.logInForm, this.logInFormErrors);
+  }
+
+  private setErrorMessages(form:FormGroup, errors): void {
+    if (!form) { return; }
+    for (const field in errors) {
+      errors[field] = '';
+      const control = form.get(field);
+      if (control && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          if (control.errors[key]) {
+            errors[field] += messages[key] + ' ';
+          }
+        }
+      }
+    }
   }
 
   ngAfterViewInit(): void {
