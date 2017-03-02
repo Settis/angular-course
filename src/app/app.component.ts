@@ -6,6 +6,8 @@ declare var $:any;
 /* tslint:enable */
 
 function patternValidator(control: FormControl, matcher: RegExp, name: string): {[key: string]: boolean} {
+  if (!control.value)
+    return null;
   const value: string = control.value || '';
   const valid: RegExpMatchArray = value.match(matcher);
   const result: {[key: string]: boolean} = {};
