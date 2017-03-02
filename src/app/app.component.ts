@@ -5,6 +5,14 @@ import {FormControl, FormGroup, FormBuilder, Validators, AbstractControl} from '
 declare var $:any;
 /* tslint:enable */
 
+function patternValidator(control: FormControl, matcher: RegExp, name: string): {[key: string]: boolean} {
+  const value: string = control.value || '';
+  const valid: RegExpMatchArray = value.match(matcher);
+  const result: {[key: string]: boolean} = {};
+  result[name] = true;
+  return valid ? null : result;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -56,7 +64,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       firstName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
       lastName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.pattern(/^\w+@\w+\.\w+$/)]],
-      password: ['', [Validators.required, this.passwordValidator, Validators.minLength(10)]]
+      password: ['', [Validators.required, this.upperCaseValidator, this.lowerCaseValidator, this.digitValidator,
+        this.specialCharValidator, Validators.minLength(10)]]
     });
     this.signUpForm.valueChanges.subscribe(() => this.onSignUpValueChanged());
     this.logInForm = _fb.group({
@@ -72,25 +81,23 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private nameValidator(control: FormControl): {[key: string]: boolean} {
-    const value: string = control.value || '';
-    const valid: RegExpMatchArray = value.match(/^[a-zA-Z]*$/);
-    return valid ? null : {nospecial: true};
+    return patternValidator(control, /^[a-zA-Z]*$/, 'nospecial');
   }
 
-  private passwordValidator(control: FormControl): {[key: string]: boolean} {
-    if (!control.value)
-      return null;
-    const result: {[key: string]: boolean} = {};
-    const value: string = control.value;
-    if (!value.match(/[A-Z]/))
-      result['upper'] = true;
-    if (!value.match(/[a-z]/))
-      result['lower'] = true;
-    if (!value.match(/\d/))
-      result['digit'] = true;
-    if (!value.match(/[^A-Za-z0-9]/))
-      result['special'] = true;
-    return Object.keys(result).length === 0 ? null : result;
+  private upperCaseValidator(control: FormControl): {[key: string]: boolean} {
+    return patternValidator(control, /[A-Z]/, 'upper');
+  }
+
+  private lowerCaseValidator(control: FormControl): {[key: string]: boolean} {
+    return patternValidator(control, /[a-z]/, 'lower');
+  }
+
+  private digitValidator(control: FormControl): {[key: string]: boolean} {
+    return patternValidator(control, /\d/, 'digit');
+  }
+
+  private specialCharValidator(control: FormControl): {[key: string]: boolean} {
+    return patternValidator(control, /[^A-Za-z0-9]/, 'special');
   }
 
   private onSignUpValueChanged(): void {
