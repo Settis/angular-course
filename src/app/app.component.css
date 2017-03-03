@@ -16,3 +16,13 @@ input.ng-valid {
 button:disabled {
   background-color: #c1bdba;
 }
+.step.show{
+  opacity: 1 !important;
+  height: auto;
+}
+.step{
+  transition: opacity 1s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}

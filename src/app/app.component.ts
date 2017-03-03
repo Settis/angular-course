@@ -2,9 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ValidatorService } from './common/validator.service';
 
-/* tslint:disable */
-declare var $:any;
-/* tslint:enable */
+declare var $:JQueryStatic;
 
 @Component({
   selector: 'app-root',
@@ -15,6 +13,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   public signUpForm: FormGroup;
   public logInForm: FormGroup;
+  public currentFormName: string = 'singup';
 
   public signUpFormErrors: {[key: string]: string} = {
     'firstName': '',
@@ -54,6 +53,10 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   public constructor(private _fb: FormBuilder,
       private _validator: ValidatorService) {
+  }
+
+  public setCurrentFormName(name: string) {
+    this.currentFormName = name;
   }
 
   public ngOnInit(): void {
@@ -155,20 +158,20 @@ export class AppComponent implements AfterViewInit, OnInit {
 
     });
 
-    $('.tab a').on('click', function (e) {
-
-      e.preventDefault();
-
-      $(this).parent().addClass('active');
-      $(this).parent().siblings().removeClass('active');
-
-      let target = $(this).attr('href');
-
-      $('.tab-content > div').not(target).hide();
-
-      $(target).fadeIn(600);
-
-    });
+    // $('.tab a').on('click', function (e) {
+    //
+    //   e.preventDefault();
+    //
+    //   $(this).parent().addClass('active');
+    //   $(this).parent().siblings().removeClass('active');
+    //
+    //   let target = $(this).attr('href');
+    //
+    //   $('.tab-content > div').not(target).hide();
+    //
+    //   $(target).fadeIn(600);
+    //
+    // });
     /* tslint:enable */
   }
 
