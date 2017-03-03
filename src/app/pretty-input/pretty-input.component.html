@@ -1,0 +1,8 @@
+<div class="field-wrap">
+  <label [ngClass]="{'highlight':highlight, 'active':active}">
+    {{label}}<span class="req">*</span>
+  </label>
+  <input [type]="type" autocomplete="off" [formControl]="control" (focus)="onFocus()"
+         (blur)="onBlur()"/>
+  <label class="error" *ngIf="errorMgs">{{errorMgs}}</label>
+</div>

@@ -1,15 +1,13 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ValidatorService } from './common/validator.service';
-
-declare var $:JQueryStatic;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements OnInit {
 
   public signUpForm: FormGroup;
   public logInForm: FormGroup;
@@ -55,7 +53,7 @@ export class AppComponent implements AfterViewInit, OnInit {
       private _validator: ValidatorService) {
   }
 
-  public setCurrentFormName(name: string) {
+  public setCurrentFormName(name: string): void {
     this.currentFormName = name;
   }
 
@@ -126,55 +124,5 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
     return errorMessages;
   }
-
-  public ngAfterViewInit(): void {
-    /* tslint:disable */
-    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
-
-      var $this = $(this),
-        label = $this.prev('label');
-
-      if (e.type === 'keyup') {
-        if ($this.val() === '') {
-          label.removeClass('active highlight');
-        } else {
-          label.addClass('active highlight');
-        }
-      } else if (e.type === 'blur') {
-        if( $this.val() === '' ) {
-          label.removeClass('active highlight');
-        } else {
-          label.removeClass('highlight');
-        }
-      } else if (e.type === 'focus') {
-
-        if( $this.val() === '' ) {
-          label.removeClass('highlight');
-        }
-        else if( $this.val() !== '' ) {
-          label.addClass('highlight');
-        }
-      }
-
-    });
-
-    // $('.tab a').on('click', function (e) {
-    //
-    //   e.preventDefault();
-    //
-    //   $(this).parent().addClass('active');
-    //   $(this).parent().siblings().removeClass('active');
-    //
-    //   let target = $(this).attr('href');
-    //
-    //   $('.tab-content > div').not(target).hide();
-    //
-    //   $(target).fadeIn(600);
-    //
-    // });
-    /* tslint:enable */
-  }
-
-
 
 }

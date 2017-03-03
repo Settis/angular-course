@@ -1,0 +1,14 @@
+input.ng-invalid {
+  outline: 0;
+  border-color: red;
+}
+
+input:focus {
+  outline: 0;
+  border-color: orange;
+}
+
+input.ng-valid {
+  outline: 0;
+  border-color: #1ab188;
+}

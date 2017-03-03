@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ValidatorService } from './common/validator.service';
+import { PrettyInputComponent } from './pretty-input/pretty-input.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PrettyInputComponent
   ],
   imports: [
     BrowserModule,

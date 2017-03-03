@@ -144,12 +144,12 @@ textarea {
   display: table;
   clear: both;
 }
-.top-row > div {
+.top-row > app-pretty-input {
   float: left;
   width: 48%;
   margin-right: 4%;
 }
-.top-row > div:last-child {
+.top-row > app-pretty-input:last-child {
   margin: 0;
 }
 
