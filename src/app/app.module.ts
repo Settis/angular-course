@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { ValidatorService } from './common/validator.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    ValidatorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

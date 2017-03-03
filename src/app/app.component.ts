@@ -1,19 +1,10 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import {FormControl, FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { ValidatorService } from './common/validator.service';
 
 /* tslint:disable */
 declare var $:any;
 /* tslint:enable */
-
-function patternValidator(control: FormControl, matcher: RegExp, name: string): {[key: string]: boolean} {
-  if (!control.value)
-    return null;
-  const value: string = control.value || '';
-  const valid: RegExpMatchArray = value.match(matcher);
-  const result: {[key: string]: boolean} = {};
-  result[name] = true;
-  return valid ? null : result;
-}
 
 @Component({
   selector: 'app-root',
@@ -61,45 +52,46 @@ export class AppComponent implements AfterViewInit, OnInit {
     },
   };
 
-  public constructor(private _fb: FormBuilder) {
-    this.signUpForm = _fb.group({
-      firstName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, this.nameValidator, Validators.minLength(3)]],
+  public constructor(private _fb: FormBuilder,
+      private _validator: ValidatorService) {
+  }
+
+  public ngOnInit(): void {
+    this.signUpForm = this._fb.group({
+      firstName: ['', [Validators.required, this.nameValidator.bind(this), Validators.minLength(3)]],
+      lastName: ['', [Validators.required, this.nameValidator.bind(this), Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.pattern(/^\w+@\w+\.\w+$/)]],
-      password: ['', [Validators.required, this.upperCaseValidator, this.lowerCaseValidator, this.digitValidator,
-        this.specialCharValidator, Validators.minLength(10)]]
+      password: ['', [Validators.required, this.upperCaseValidator.bind(this), this.lowerCaseValidator.bind(this),
+        this.digitValidator.bind(this), this.specialCharValidator.bind(this), Validators.minLength(10)]]
     });
     this.signUpForm.valueChanges.subscribe(() => this.onSignUpValueChanged());
-    this.logInForm = _fb.group({
+    this.logInForm = this._fb.group({
       email: ['', [Validators.required, Validators.pattern(/^\w+@\w+\.\w+$/)]],
       password: ['', [Validators.required]]
     });
     this.logInForm.valueChanges.subscribe(() => this.onLogInValueChanged());
-  }
-
-  public ngOnInit(): void {
     this.onSignUpValueChanged();
     this.onLogInValueChanged();
   }
 
   private nameValidator(control: FormControl): {[key: string]: boolean} {
-    return patternValidator(control, /^[a-zA-Z]*$/, 'nospecial');
+    return this._validator.namedPatternValidator(control, /^[a-zA-Z]*$/, 'nospecial');
   }
 
   private upperCaseValidator(control: FormControl): {[key: string]: boolean} {
-    return patternValidator(control, /[A-Z]/, 'upper');
+    return this._validator.namedPatternValidator(control, /[A-Z]/, 'upper');
   }
 
   private lowerCaseValidator(control: FormControl): {[key: string]: boolean} {
-    return patternValidator(control, /[a-z]/, 'lower');
+    return this._validator.namedPatternValidator(control, /[a-z]/, 'lower');
   }
 
   private digitValidator(control: FormControl): {[key: string]: boolean} {
-    return patternValidator(control, /\d/, 'digit');
+    return this._validator.namedPatternValidator(control, /\d/, 'digit');
   }
 
   private specialCharValidator(control: FormControl): {[key: string]: boolean} {
-    return patternValidator(control, /[^A-Za-z0-9]/, 'special');
+    return this._validator.namedPatternValidator(control, /[^A-Za-z0-9]/, 'special');
   }
 
   private onSignUpValueChanged(): void {
@@ -117,13 +109,13 @@ export class AppComponent implements AfterViewInit, OnInit {
       if (control && !control.valid) {
         errors[field] = this.getControlErrorMessages(control, this.validationMessages[field]);
       } else {
-        errors[field] = ''
+        errors[field] = '';
       }
     }
   }
 
   private getControlErrorMessages(control: AbstractControl, messages: {[key: string]: string}): string {
-    let errorMessages = '';
+    let errorMessages: string = '';
     for (const key in control.errors) {
       if (control.errors[key]) {
         errorMessages += messages[key] + ' ';
