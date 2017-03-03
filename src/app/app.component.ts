@@ -103,27 +103,33 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private onSignUpValueChanged(): void {
-    this.setErrorMessages(this.signUpForm, this.signUpFormErrors);
+    this.setFormErrorMessages(this.signUpForm, this.signUpFormErrors);
   }
 
   private onLogInValueChanged(): void {
-    this.setErrorMessages(this.logInForm, this.logInFormErrors);
+    this.setFormErrorMessages(this.logInForm, this.logInFormErrors);
   }
 
-  private setErrorMessages(form: FormGroup, errors: {[key: string]: string}): void {
+  private setFormErrorMessages(form: FormGroup, errors: {[key: string]: string}): void {
     if (!form) { return; }
     for (const field in errors) {
-      errors[field] = '';
       const control: AbstractControl = form.get(field);
       if (control && !control.valid) {
-        const messages: {[key: string]: string} = this.validationMessages[field];
-        for (const key in control.errors) {
-          if (control.errors[key]) {
-            errors[field] += messages[key] + ' ';
-          }
-        }
+        errors[field] = this.getControlErrorMessages(control, this.validationMessages[field]);
+      } else {
+        errors[field] = ''
       }
     }
+  }
+
+  private getControlErrorMessages(control: AbstractControl, messages: {[key: string]: string}): string {
+    let errorMessages = '';
+    for (const key in control.errors) {
+      if (control.errors[key]) {
+        errorMessages += messages[key] + ' ';
+      }
+    }
+    return errorMessages;
   }
 
   public ngAfterViewInit(): void {
