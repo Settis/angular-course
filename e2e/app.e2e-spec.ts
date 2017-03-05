@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { AngularCoursePage } from './app.po';
 
 describe('angular-course App', function() {

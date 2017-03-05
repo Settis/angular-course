@@ -1,0 +1,18 @@
+<div id="login" [ngClass]="{'show': visible, 'step': true}">
+  <h1>Welcome Back!</h1>
+
+  <form [formGroup]="form">
+
+    <app-pretty-input [control]="form.controls['email']" label="Email Address"
+                      [errorMgs]="formErrors.email"></app-pretty-input>
+
+    <app-pretty-input [control]="form.controls['password']" label="Set a Password"
+                      [errorMgs]="formErrors.password" type="password"></app-pretty-input>
+
+    <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+    <button class="button button-block" [disabled]="!form.valid">Log In</button>
+
+  </form>
+
+</div>

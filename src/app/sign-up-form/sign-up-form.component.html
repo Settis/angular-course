@@ -1,0 +1,22 @@
+<div id="signup" [ngClass]="{'show': visible, 'step': true}">
+  <h1>Sign Up for Free</h1>
+
+  <form [formGroup]="form">
+
+    <div class="top-row">
+      <app-pretty-input [control]="form.controls['firstName']" label="First Name"
+                        [errorMgs]="formErrors.firstName"></app-pretty-input>
+      <app-pretty-input [control]="form.controls['lastName']" label="Last Name"
+                        [errorMgs]="formErrors.lastName"></app-pretty-input>
+    </div>
+
+    <app-pretty-input [control]="form.controls['email']" label="Email Address"
+                      [errorMgs]="formErrors.email"></app-pretty-input>
+
+    <app-pretty-input [control]="form.controls['password']" label="Set a Password"
+                      [errorMgs]="formErrors.password" type="password"></app-pretty-input>
+
+    <button type="submit" class="button button-block" [disabled]="!form.valid">Get Started</button>
+  </form>
+
+</div>
